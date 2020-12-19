@@ -41,6 +41,7 @@ func startDebugService(ctx context.Context) error {
 
 func waitOsQuitSignal(ctx context.Context) error {
 	quit := make(chan os.Signal)
+	defer close(quit)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 	select {
 	case <-quit:
